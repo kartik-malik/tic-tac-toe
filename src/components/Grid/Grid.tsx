@@ -1,6 +1,7 @@
 import styles from "./grid.module.scss";
 import { useGridContext } from "../../hooks/useGrid/useGrid";
-import { Cell } from "./Grid.components";
+import { Cell, GameOver } from "./Grid.components";
+import { GameButtons } from "../Buttons/GameButtons";
 
 const Grid = () => {
   const { grid } = useGridContext();
@@ -8,7 +9,7 @@ const Grid = () => {
   ondrop;
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <div className={styles.grid}>
         {grid.map((row, rowIdx) => {
           return row.map((_, colIdx) => {
@@ -22,7 +23,9 @@ const Grid = () => {
           });
         })}
       </div>
-    </>
+      <GameButtons />
+      <GameOver />
+    </div>
   );
 };
 

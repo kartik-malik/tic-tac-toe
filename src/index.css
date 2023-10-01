@@ -21,11 +21,19 @@ a:hover {
 }
 
 
+html {
+  background-color: #000;
+  color: white;
+
+}
+* {
+  box-sizing: border-box;
+}
 
 body {
-  margin: 0;
+  margin: 100px;
   display: flex;
-  place-items: center;
+  place-items: start center;
   min-width: 320px;
   min-height: 100vh;
 }

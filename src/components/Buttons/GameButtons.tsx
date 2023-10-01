@@ -1,4 +1,5 @@
 import { DragEvent, ReactNode } from "react";
+import cx from "classnames";
 import Cross from "../../assets/icons/Cross";
 
 import styles from "./gameButtons.module.scss";
@@ -16,14 +17,16 @@ const DraggableButton = ({
     event.dataTransfer.setData("application/json", JSON.stringify({ value }));
     event.dataTransfer.effectAllowed = "move";
   };
-  
+
   const { currentPlayer } = useGridContext();
 
   return (
     <div
       {...(currentPlayer !== value && { draggable: "true" })}
       onDragStart={onDragEventStart}
-      className={styles.draggableButton}
+      className={cx(styles.draggableButton, {
+        [styles.disabled]: value === currentPlayer,
+      })}
     >
       {children}
     </div>
@@ -36,9 +39,9 @@ const GameButtons = () => {
     return null;
   }
   return (
-    <div className={styles.buttonContainer}>
+    <div className={styles.buttonsContainer}>
       <DraggableButton value="x">
-        <Cross />
+        <Cross color="white" className={styles.cross} />
       </DraggableButton>
       <DraggableButton value="o">
         <Circle />

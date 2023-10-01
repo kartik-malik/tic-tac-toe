@@ -4,6 +4,7 @@ import styles from "./grid.module.scss";
 import { DragEvent, PropsWithChildren } from "react";
 import { GridItem } from "../../hooks/useGrid";
 import Circle from "../../assets/icons/Circle";
+import Cross from "../../assets/icons/Cross";
 
 interface CellProps {
   rowIdx: number;
@@ -38,7 +39,6 @@ const Cell = ({ colIdx, rowIdx }: CellProps) => {
   const handleOnDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
-
     const draggedItemData = event.dataTransfer.getData("application/json");
 
     const data = JSON.parse(draggedItemData);
@@ -67,17 +67,26 @@ const Cell = ({ colIdx, rowIdx }: CellProps) => {
   if (grid[rowIdx][colIdx] === "x") {
     return (
       <CellUiContainer colIdx={colIdx} rowIdx={rowIdx}>
-        x
+        <Cross className={styles.boardMarkerCross} color="white" />
       </CellUiContainer>
     );
   }
   if (grid[rowIdx][colIdx] === "o") {
     return (
       <CellUiContainer colIdx={colIdx} rowIdx={rowIdx}>
-        <Circle />
+        <Circle className={styles.boardMarkerCircle} />
       </CellUiContainer>
     );
   }
 };
 
-export { Cell };
+const GameOver = () => {
+  const { gameEnded, currentPlayer } = useGridContext();
+
+  if (gameEnded) {
+    return currentPlayer ? <h3>Winner: {currentPlayer}</h3> : <h3>Draw</h3>;
+  }
+  return null;
+};
+
+export { Cell, GameOver };
