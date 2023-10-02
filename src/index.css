@@ -31,7 +31,7 @@ html {
 }
 
 body {
-  margin: 100px;
+  margin-top: 100px;
   display: flex;
   place-items: start center;
   min-width: 320px;
